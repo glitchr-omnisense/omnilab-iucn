@@ -1,0 +1,45 @@
+{
+    "name": "omnilab/iucn",
+    "type": "library",
+    "description": "Omnilab IUCN Red List: a taxon of the IUCN Red List of Threatened Species by its SIS id or scientific name - classification, authority, common names, synonyms, assessing group - with its latest global assessment (Red List category, criteria, population trend, year, possibly extinct, citation), through the Red List API v4 with the user's API token.",
+    "keywords": [
+        "science",
+        "biodiversity",
+        "conservation",
+        "iucn",
+        "red-list",
+        "taxonomy",
+        "omnilab"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marco Meyer",
+            "email": "marco.meyer@glitchr.io"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "glitchr/omnilab": "^1.0@dev",
+        "symfony/http-client": "^6.4|^7.0|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnilab\\Iucn\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Omnilab\\Iucn\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
