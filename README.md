@@ -6,7 +6,7 @@
 > public test fixtures (`Tests/Constructed/`, whose README says where each comes from).
 
 The IUCN Red List of Threatened Species for
-[glitchr/omnilab](https://github.com/glitchr-studio/omnilab): a taxon by its SIS id or its
+[omniscient/omnilab](https://github.com/glitchr-studio/omnilab): a taxon by its SIS id or its
 scientific name - its classification, authority, common names, synonyms, the IUCN group that
 assesses it - with its latest global assessment: its Red List category, criteria, population
 trend, year, whether it is possibly extinct, and the citation the IUCN asks for. An assessment by
