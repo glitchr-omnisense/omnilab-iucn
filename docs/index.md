@@ -1,5 +1,10 @@
 # omnilab/iucn
 
+The IUCN Red List API v4 (`https://api.iucnredlist.org/api/v4/`) for
+[omnisense/omnilab](https://github.com/glitchr-omnisense/omnilab): a taxon by its SIS id or its
+scientific name, with its latest global assessment - category, criteria, population trend,
+citation -, as an entity. The user's token is required. Not tested live.
+
 ## Installation
 
 ```sh
@@ -16,6 +21,53 @@ $iucn = (new IucnSourceFactory($httpClient))->create([
 
 With the Symfony bundle, the factory is registered as `iucn` (see the core's docs); keep the token
 in an environment variable or the secrets vault.
+
+## Credentials
+
+Every call needs the user's Red List API token: an account at
+[api.iucnredlist.org](https://api.iucnredlist.org/), under the IUCN Red List Terms of Use, gives
+it. It is given as `key` and sent in the `Authorization` header, as the IUCN's R client rredlist
+sends it. Without it the source is built and every call is refused before it is made. Keep the
+token in an environment variable or the secrets vault.
+
+## Options
+
+The factory's options, with the defaults it applies (`IucnSourceFactory`):
+
+| Option | Type | Default | Required | Effect |
+|---|---|---|---|---|
+| `key` | `?string` | null | no | the user's Red List API token, sent as `Authorization`; null or empty: every call refused (`InvalidConfigException`) before it is made |
+| `assessment` | `bool` | `true` | no | `entity()` reads the latest global assessment too (a second call); `false`: the taxon only |
+| `language` | `string` | `eng` | no | the common name kept as `common_name`, by its ISO 639-3 code |
+| `mailto` | `?string` | null | no | a contact address, sent in the User-Agent |
+| `user_agent` | `?string` | null | no | the whole User-Agent, in place of the one made from `mailto` |
+| `throttle` | `float` | `0.5` | no | seconds left between two calls: the IUCN asks for half a second at least |
+| `base_uri` | `string` | `https://api.iucnredlist.org/api/v4/` | no | the API the source calls |
+
+## Capabilities
+
+`capabilities()` answers `entity`; an operation it does not answer throws `NotSupportedException` before any call.
+
+| Capability | Supported | |
+|---|---|---|
+| `entity` | yes | a SIS id (`134817215`, `iucn:`, its page) or a scientific name of two or three words (`ssp.`, `var.` read); another scheme refused before any call; a name of one word is null |
+| `search` | no | the API has no search of names |
+| `series` | no |  |
+| `products` | no |  |
+| `occurrences` | no |  |
+| `datasets` | no |  |
+| `jobs` | no |  |
+| `open` | no |  |
+| `structure` | no |  |
+| `cross_references` | no | none: the Red List gives no other base's id (WoRMS and Wikidata carry the IUCN id) |
+| `forecast` | no |  |
+| `historical` | no |  |
+| `area` | no |  |
+| `station` | no |  |
+| `cloud_cover` | no |  |
+
+Outside the contract, on `Omnilab\Iucn\IucnSource`: `assessment(int|string $id): ?Entity`, the
+taxon with what one assessment (of any scope: a regional one) says.
 
 ## Which API
 
@@ -65,6 +117,55 @@ assessed only regionally has none here (`assessment()` reads a regional one by i
   realms, stresses, references and credits of an assessment; the lists by country, family,
   category or threat; the range maps (spatial data are distributed apart, under their own terms).
 
+## Example
+
+```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Omnilab\Exception\InvalidConfigException;
+use Omnilab\Iucn\IucnSourceFactory;
+use Symfony\Component\HttpClient\HttpClient;
+
+$iucn = (new IucnSourceFactory(HttpClient::create()))->create([
+    'key' => getenv('IUCN_API_KEY') ?: null,   // the user's Red List API token: every call needs it
+    'mailto' => 'you@example.org',
+]);
+
+try {
+    $gorilla = $iucn->entity('Gorilla gorilla');
+    echo $gorilla?->label, ': ', $gorilla?->value('iucn_status'), ' (', $gorilla?->value('red_list_criteria'), '), ', $gorilla?->value('population_trend'), "\n";
+    echo $gorilla?->value('citation'), "\n";
+} catch (InvalidConfigException $e) {
+    echo $e->getMessage(), "\n";
+}
+```
+
+Without a token (run on 2026-10-27, no network needed: the call is refused before it is made):
+
+```
+[iucn] An IUCN Red List API token (the "key" option, from an account at api.iucnredlist.org) is needed for every call.
+```
+
+With a token it prints the gorilla's category, criteria, trend and the assessment's citation: not
+run here (no token).
+
+```yaml
+# config/packages/omnilab.yaml
+omnilab:
+    sources:
+        iucn: { factory: iucn, options: { key: '%env(IUCN_API_KEY)%', mailto: '%env(OMNILAB_MAILTO)%' } }
+```
+
+## Errors
+
+Every call goes through `HttpSource`: a 404 or a 410 (and a 204) is null - an empty page for a list -; a 429 is a `RateLimitedException` (`retryAfter` from `Retry-After`); a 5xx, a time-out or a host that does not answer an `UnavailableException`; any other 4xx a `ProviderException` with its `status` and what the service said; an answer that is not JSON a `ProviderException`, a web page answered for JSON an `UnavailableException`.
+
+Before any call: no token (`InvalidConfigException`), an identifier of another scheme
+(`NotSupportedException`). The API's 403 (no token, a wrong one) is a `ProviderException`; an
+unknown taxon its 404, null.
+
 ## Verified, and not
 
 **Not tested live**: no token was used (an account and the acceptance of the terms of use are the
@@ -76,3 +177,17 @@ gorilla's taxon (SIS 9404, twelve assessments, its latest global one chosen) by 
 the Atlantic Puffin's Europe assessment (Endangered, A2abcde+4abcde, decreasing). Whether today's
 answers keep that shape, and whether the token is sent as rredlist sends it, is to be checked by a
 user with a token.
+
+On 2026-10-27 the example below ran without a token: the refusal before any call, as tested.
+
+## Responsibility
+
+This package is an independent, unofficial client: it is not affiliated with, endorsed by or
+sponsored by the IUCN. The token is the user's, under the
+[IUCN Red List Terms of Use](https://www.iucnredlist.org/terms/terms-of-use): conservation,
+education and research that is not commercial (a commercial use needs the IUCN's licence), no
+redistribution of the data as a dataset, the Red List and each assessment cited, as the README's
+[Terms of use](https://github.com/glitchr-omnisense/omnilab-iucn#terms-of-use) says. Whoever runs
+the package is responsible for complying with them and for any use made of what it returns: see
+the README's [Responsibility](https://github.com/glitchr-omnisense/omnilab-iucn#responsibility)
+section.
