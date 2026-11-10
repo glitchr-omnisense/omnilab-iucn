@@ -54,6 +54,17 @@ the token, and keeping to these terms, are the user's.
 
 See [docs/](docs/index.md) for what is read, how it maps, and what the Red List does not give here.
 
+## Usage policy
+
+Declared as data in [`policy.json`](policy.json) (its pages could not be read on 2026-11-10 (https://api.iucnredlist.org/): see the notes in the file), and honoured on every request by the
+core: a limit reached waits when its window ends within `max_wait` seconds, else the request is not
+sent ([Usage policies](https://github.com/glitchr-omnisense/omnilab/blob/1.x/docs/policies.md)).
+
+- Limits: not published (unknown).
+- Licence: not stated; commercial use: contract.
+- Credit: required: IUCN 2026. IUCN Red List of Threatened Species. Version 2026-1 <www.iucnredlist.org> (https://www.iucnredlist.org).
+- Needs: a key.
+
 ## Responsibility
 
 This package is an independent, unofficial client: it is not affiliated with, endorsed by or

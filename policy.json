@@ -1,0 +1,40 @@
+{
+    "$schema": "https://github.com/glitchr-omnisense/contracts/blob/1.x/resources/usage-policy.schema.json",
+    "provider": "iucn",
+    "rateLimits": null,
+    "concurrency": null,
+    "rights": {
+        "commercial": "contract",
+        "openSourceRequired": null,
+        "caching": {
+            "permission": "contract",
+            "maxTtl": null
+        },
+        "storage": "unknown",
+        "redistribution": "forbidden",
+        "attribution": {
+            "required": true,
+            "text": "IUCN 2026. IUCN Red List of Threatened Species. Version 2026-1 <www.iucnredlist.org>",
+            "url": "https://www.iucnredlist.org",
+            "where": [
+                "source"
+            ]
+        },
+        "licence": null
+    },
+    "requirements": {
+        "key": true,
+        "userAgent": {
+            "required": false,
+            "pattern": null
+        }
+    },
+    "provenance": {
+        "terms": "https://www.iucnredlist.org/terms/terms-of-use",
+        "policy": "https://api.iucnredlist.org/",
+        "verifiedAt": null,
+        "declaredBy": "maintainer",
+        "contact": "redlist@iucn.org",
+        "notes": "api.iucnredlist.org and the Terms of Use answered 403 live on 2026-11-10 and were read in Wayback snapshots (2026-10-11, 2026-11-01). API page: a token is needed for every call (account); a rate-limiting system exists but no figure is published - \"incorporate appropriate delays between your API calls\" or the token may be further rate-limited or revoked; scraping is misuse; \"Use of the Red List API for commercial purposes is strictly forbidden\" (commercial users: an IBAT subscription); caching between Red List updates is recommended only after checking permission with the Red List team; full citation required, with the version. Terms (v3.1, June 2024): no commercial use of the data or derived works without IUCN's prior written permission; no reposting or redistribution of Red List data in whole or in part, including through web services or APIs, without a written waiver; use, download and print granted solely for conservation, education, scientific analysis and research; copies of publications to IUCN; superseded versions not to be used. The 0.5 s wait in this package's README/code is not stated on the pages read. Data are proprietary (no open licence)."
+    }
+}

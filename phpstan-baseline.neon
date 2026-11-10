@@ -1,0 +1,181 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Binary operation "\." between ''assessment/'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot access offset ''code'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot access offset ''description'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot access offset ''en'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 3
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot access offset ''generational_length'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot access offset ''population_size'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#1 \$t of method Omnilab\\Iucn\\IucnSource\:\:toEntity\(\) expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#1 \$text of static method Omnilab\\Source\\HttpSource\:\:text\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 22
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#1 \$value of function count expects array\|Countable, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#2 \$a of method Omnilab\\Iucn\\IucnSource\:\:toEntity\(\) expects array\<string, mixed\>\|null, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#2 \$a of method Omnilab\\Iucn\\IucnSource\:\:toEntity\(\) expects array\<string, mixed\>\|null, array\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#2 \$value of static method Omnilab\\Model\\Identifier\:\:tryOf\(\) expects int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Parameter \#3 \$latest of method Omnilab\\Iucn\\IucnSource\:\:toEntity\(\) expects array\<string, mixed\>\|null, array\<mixed\>\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: IucnSource.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
+			count: 1
+			path: IucnSourceFactory.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 3
+			path: IucnSourceFactory.php
+
+		-
+			message: '#^Cannot access property \$domain on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot access property \$id on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot access property \$kind on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot access property \$label on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot access property \$source on Omnilab\\Model\\Property\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot access property \$url on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot call method property\(\) on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot call method related\(\) on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Cannot call method value\(\) on Omnilab\\Model\\Entity\|null\.$#'
+			identifier: method.nonObject
+			count: 22
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Method Omnilab\\Iucn\\Tests\\IucnSourceTest\:\:source\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Parameter \#1 \$options of method Omnilab\\Source\\SourceFactory\:\:create\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of static method PHPUnit\\Framework\\Assert\:\:assertStringStartsWith\(\) expects string, bool\|float\|int\|Omnilab\\Model\\Quantity\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Tests/IucnSourceTest.php
+
+		-
+			message: '#^Property Omnilab\\Iucn\\Tests\\IucnSourceTest\:\:\$headers \(list\<array\<string, list\<string\>\>\>\) does not accept non\-empty\-list\<mixed\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: Tests/IucnSourceTest.php
