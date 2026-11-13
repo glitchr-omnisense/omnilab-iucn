@@ -40,6 +40,41 @@ the `Collector` follows it here. The category is written `Endangered (EN)`, as `
 `omnilab/inaturalist` write theirs, under the same key, `iucn_status`: merged, the three are kept
 side by side, each with its source.
 
+## Install and a first call
+
+```sh
+composer require omnilab/iucn
+```
+
+Every call of the IUCN Red List API needs a token, obtained with an account under the Red List's
+terms of use. This first call needs none: the western gorilla's taxon, its answer recorded (the API
+v4's, as the R client rredlist recorded it on 2024-09-18, trimmed), so nothing leaves the process
+(Symfony's `MockHttpClient` answers in place of the service). A real call gives the factory no
+client (it makes its own) and the source `['key' => getenv('IUCN_API_KEY')]`.
+
+```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Omnilab\Iucn\IucnSourceFactory;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
+
+// The service's answer, recorded: no account, and nothing leaves the process.
+$http = new MockHttpClient(new MockResponse('{"sis_id": 9404, "taxon": {"sis_id": 9404, "scientific_name": "Gorilla gorilla", "kingdom_name": "ANIMALIA",
+    "family_name": "HOMINIDAE", "genus_name": "Gorilla", "species_name": "gorilla", "authority": "(Savage, 1847)", "species": true}, "assessments": []}'));
+$iucn = (new IucnSourceFactory($http))->create(['key' => 'not-a-token', 'assessment' => false]);
+$gorilla = $iucn->entity('9404');
+echo $gorilla->label, ' ', $gorilla->value('taxon_authority'), ', ', $gorilla->value('family'), "\n";
+```
+
+Its output:
+
+```
+Gorilla gorilla (Savage, 1847), Hominidae
+```
+
 ## Terms of use
 
 The Red List API is the IUCN's. Its token is obtained by the user with an account at
